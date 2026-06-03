@@ -1,7 +1,17 @@
+import heroImage from '@/assets/hero.png'
 export function HeroSection() {
   return (
-    <section className="flex flex-col items-center justify-center px-5 pt-10 pb-16 text-center bg-black">
-      <div className="flex flex-col items-center">
+    <section
+      className="relative flex flex-col items-center justify-center text-center px-5 pt-10 pb-16"
+      style={{
+        backgroundImage: `url(${heroImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="z-10 absolute inset-0 bg-black/55" />
+      <div className="z-20 flex flex-col items-center">
         {/* Country badge */}
         <div className="mt-20 mb-5 inline-flex items-center gap-1.5 px-3 py-1 text-sm text-white/90">
           🇱🇰 SRI LANKA
