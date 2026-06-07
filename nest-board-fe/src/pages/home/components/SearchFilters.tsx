@@ -1,15 +1,41 @@
-import { Search, SlidersHorizontal } from "lucide-react"
+import {
+  Search,
+  SlidersHorizontal,
+  Home,
+  Building2,
+  Warehouse,
+  Hotel,
+  type LucideIcon,
+} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import type { Property } from "@/types/property"
 
 type SearchFiltersProps = {
   searchQuery: string
+  activeCategory: Property["type"] | "All"
   onSearchChange: (value: string) => void
+  onCategoryChange: (value: Property["type"] | "All") => void
 }
+
+interface Category {
+  label: Property["type"] | "All"
+  icon: LucideIcon | null
+}
+
+const categories: Category[] = [
+  { label: "All", icon: null },
+  { label: "House", icon: Home },
+  { label: "Villa", icon: Warehouse },
+  { label: "Apartment", icon: Building2 },
+  { label: "Hotel", icon: Hotel },
+]
 
 export function SearchFilters({
   searchQuery,
+  activeCategory,
   onSearchChange,
+  onCategoryChange,
 }: SearchFiltersProps) {
   return (
     <div className="relative z-20 -mt-7 px-4">
@@ -32,6 +58,21 @@ export function SearchFilters({
             <SlidersHorizontal />
             Filters
           </Button>
+        </div>
+        {/* Category tabs */}
+        <div className="flex items-center gap-1.5">
+          {categories.map(({ label, icon: Icon }) => (
+            <Button
+              key={label}
+              size="sm"
+              variant={activeCategory === label ? "default" : "outline"}
+              className="gap-1.5 rounded-full"
+              onClick={() => onCategoryChange(label)}
+            >
+              {Icon && <Icon />}
+              {label}
+            </Button>
+          ))}
         </div>
       </div>
     </div>
